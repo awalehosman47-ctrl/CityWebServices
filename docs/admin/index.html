@@ -8,291 +8,64 @@
   <script src="config.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #0f172a;
-      color: #e2e8f0;
-      min-height: 100vh;
-      padding: 16px;
-    }
-
-    .header {
-      text-align: center;
-      padding: 20px 0;
-      border-bottom: 1px solid #1e293b;
-      margin-bottom: 20px;
-    }
-
-    .header h1 {
-      font-size: 1.5rem;
-      color: #14b8a6;
-      margin-bottom: 4px;
-    }
-
-    .header p {
-      font-size: 0.85rem;
-      color: #64748b;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-
-    .stat-card {
-      background: #1e293b;
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-    }
-
-    .stat-card .number {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #f8fafc;
-    }
-
-    .stat-card .label {
-      font-size: 0.75rem;
-      color: #64748b;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; padding: 16px; }
+    .header { text-align: center; padding: 20px 0; border-bottom: 1px solid #1e293b; margin-bottom: 20px; }
+    .header h1 { font-size: 1.5rem; color: #14b8a6; margin-bottom: 4px; }
+    .header p { font-size: 0.85rem; color: #64748b; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+    .stat-card { background: #1e293b; border-radius: 12px; padding: 16px; text-align: center; }
+    .stat-card .number { font-size: 1.8rem; font-weight: 700; color: #f8fafc; }
+    .stat-card .label { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
     .stat-card.pending .number { color: #fbbf24; }
     .stat-card.completed .number { color: #34d399; }
     .stat-card.noshow .number { color: #f87171; }
-
-    .section-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: #f8fafc;
-    }
-
-    .add-form {
-      background: #1e293b;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 24px;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    .form-row.full {
-      grid-template-columns: 1fr;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 12px 14px;
-      background: #0f172a;
-      border: 1px solid #334155;
-      border-radius: 8px;
-      color: #e2e8f0;
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    input:focus, select:focus {
-      border-color: #14b8a6;
-    }
-
+    .section-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 12px; color: #f8fafc; }
+    .add-form { background: #1e293b; border-radius: 12px; padding: 20px; margin-bottom: 24px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .form-row.full { grid-template-columns: 1fr; }
+    input, select { width: 100%; padding: 12px 14px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: #e2e8f0; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
+    input:focus, select:focus { border-color: #14b8a6; }
     input::placeholder { color: #475569; }
-
-    .btn-add {
-      width: 100%;
-      padding: 14px;
-      background: #14b8a6;
-      color: #0f172a;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 8px;
-    }
-
+    .btn-add { width: 100%; padding: 14px; background: #14b8a6; color: #0f172a; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 8px; }
     .btn-add:active { background: #0d9488; }
-
-    .appointment-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .appointment-card {
-      background: #1e293b;
-      border-radius: 12px;
-      padding: 16px;
-      border-left: 4px solid #fbbf24;
-    }
-
-    .appointment-card.status-completed {
-      border-left-color: #34d399;
-      opacity: 0.7;
-    }
-
-    .appointment-card.status-no_show {
-      border-left-color: #f87171;
-      opacity: 0.7;
-    }
-
-    .patient-name {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .patient-details {
-      font-size: 0.85rem;
-      color: #94a3b8;
-      margin-bottom: 12px;
-    }
-
-    .patient-details span {
-      display: block;
-      margin-bottom: 2px;
-    }
-
-    .action-buttons {
-      display: flex;
-      gap: 10px;
-    }
-
-    .btn {
-      flex: 1;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-align: center;
-    }
-
-    .btn-complete {
-      background: #065f46;
-      color: #34d399;
-    }
-
+    .appointment-list { display: flex; flex-direction: column; gap: 12px; }
+    .appointment-card { background: #1e293b; border-radius: 12px; padding: 16px; border-left: 4px solid #fbbf24; }
+    .appointment-card.status-completed { border-left-color: #34d399; opacity: 0.7; }
+    .appointment-card.status-no_show { border-left-color: #f87171; opacity: 0.7; }
+    .patient-name { font-size: 1.1rem; font-weight: 600; margin-bottom: 4px; }
+    .patient-details { font-size: 0.85rem; color: #94a3b8; margin-bottom: 12px; }
+    .patient-details span { display: block; margin-bottom: 2px; }
+    .action-buttons { display: flex; gap: 10px; }
+    .btn { flex: 1; padding: 12px; border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; text-align: center; }
+    .btn-complete { background: #065f46; color: #34d399; }
     .btn-complete:active { background: #047857; }
-
-    .btn-noshow {
-      background: #7f1d1d;
-      color: #f87171;
-    }
-
+    .btn-noshow { background: #7f1d1d; color: #f87171; }
     .btn-noshow:active { background: #991b1b; }
-
-    .status-badge {
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-    }
-
+    .status-badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
     .badge-completed { background: #065f46; color: #34d399; }
     .badge-no_show { background: #7f1d1d; color: #f87171; }
     .badge-pending { background: #78350f; color: #fbbf24; }
-
-    .sms-indicator {
-      font-size: 0.75rem;
-      color: #34d399;
-      margin-top: 8px;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 40px 20px;
-      color: #64748b;
-    }
-
-    .toast {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #1e293b;
-      color: #e2e8f0;
-      padding: 14px 24px;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-      z-index: 1000;
-      display: none;
-      border: 1px solid #334155;
-    }
-
+    .sms-indicator { font-size: 0.75rem; color: #34d399; margin-top: 8px; }
+    .empty-state { text-align: center; padding: 40px 20px; color: #64748b; }
+    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #1e293b; color: #e2e8f0; padding: 14px 24px; border-radius: 10px; font-size: 0.9rem; box-shadow: 0 10px 40px rgba(0,0,0,0.4); z-index: 1000; display: none; border: 1px solid #334155; }
     .toast.success { border-color: #34d399; }
     .toast.error { border-color: #f87171; }
-
-    .filter-tabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 16px;
-      overflow-x: auto;
-    }
-
-    .filter-tab {
-      padding: 8px 16px;
-      background: #1e293b;
-      border: 1px solid #334155;
-      border-radius: 20px;
-      color: #94a3b8;
-      font-size: 0.85rem;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .filter-tab.active {
-      background: #14b8a6;
-      color: #0f172a;
-      border-color: #14b8a6;
-      font-weight: 600;
-    }
-
-    .loading {
-      text-align: center;
-      padding: 40px;
-      color: #64748b;
-    }
+    .filter-tabs { display: flex; gap: 8px; margin-bottom: 16px; overflow-x: auto; }
+    .filter-tab { padding: 8px 16px; background: #1e293b; border: 1px solid #334155; border-radius: 20px; color: #94a3b8; font-size: 0.85rem; cursor: pointer; white-space: nowrap; }
+    .filter-tab.active { background: #14b8a6; color: #0f172a; border-color: #14b8a6; font-weight: 600; }
+    .loading { text-align: center; padding: 40px; color: #64748b; }
   </style>
 </head>
 <body>
-
   <div class="header">
     <h1 id="clinic-name">Loading...</h1>
     <p>Appointment Management</p>
   </div>
-
   <div class="stats">
-    <div class="stat-card pending">
-      <div class="number" id="stat-pending">0</div>
-      <div class="label">Pending</div>
-    </div>
-    <div class="stat-card completed">
-      <div class="number" id="stat-completed">0</div>
-      <div class="label">Done</div>
-    </div>
-    <div class="stat-card noshow">
-      <div class="number" id="stat-noshow">0</div>
-      <div class="label">No Show</div>
-    </div>
+    <div class="stat-card pending"><div class="number" id="stat-pending">0</div><div class="label">Pending</div></div>
+    <div class="stat-card completed"><div class="number" id="stat-completed">0</div><div class="label">Done</div></div>
+    <div class="stat-card noshow"><div class="number" id="stat-noshow">0</div><div class="label">No Show</div></div>
   </div>
-
-  <!-- Add Patient Form -->
   <div class="add-form">
     <h3 class="section-title">Add Patient</h3>
     <div class="form-row">
@@ -315,31 +88,19 @@
     </div>
     <button class="btn-add" onclick="addPatient()">+ Add Appointment</button>
   </div>
-
-  <!-- Filter Tabs -->
   <div class="filter-tabs">
     <div class="filter-tab active" onclick="setFilter('all')">All</div>
     <div class="filter-tab" onclick="setFilter('pending')">Pending</div>
     <div class="filter-tab" onclick="setFilter('completed')">Completed</div>
     <div class="filter-tab" onclick="setFilter('no_show')">No Show</div>
   </div>
-
-  <!-- Appointment List -->
   <div class="section-title">Today's Appointments</div>
   <div class="appointment-list" id="appointment-list">
     <div class="loading">Loading appointments...</div>
   </div>
-
-  <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
 
   <script>
-    // ============================================================
-    // LOAD CONFIG — Edit config.js to change per client
-    // ============================================================
-    // CONFIG is loaded from config.js (include before this script)
-    // For standalone use, paste your config values here:
-    
     const CLINIC_NAME = CONFIG.clinicName;
     const REVIEW_LINK = CONFIG.reviewLink;
     const SUPABASE_URL = CONFIG.supabaseUrl;
@@ -347,71 +108,34 @@
     const MAKE_WEBHOOK_URL = CONFIG.makeWebhookUrl;
     const SMS_TEMPLATE = CONFIG.smsTemplate;
 
-    // ============================================================
-    // SUPABASE CLIENT
-    // ============================================================
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     let currentFilter = 'all';
 
-    // ============================================================
-    // INITIALIZE
-    // ============================================================
     document.getElementById('clinic-name').textContent = CLINIC_NAME;
-    document.title = `${CLINIC_NAME} - Dashboard`;
+    document.title = CLINIC_NAME + ' - Dashboard';
     loadAppointments();
 
-    // ============================================================
-    // LOAD APPOINTMENTS
-    // ============================================================
     async function loadAppointments() {
-      let query = supabase
-        .from('appointments')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (currentFilter !== 'all') {
-        query = query.eq('status', currentFilter);
-      }
-
+      let query = supabaseClient.from('appointments').select('*').order('created_at', { ascending: false });
+      if (currentFilter !== 'all') query = query.eq('status', currentFilter);
       const { data, error } = await query;
-
-      if (error) {
-        showToast('Failed to load appointments: ' + error.message, 'error');
-        return;
-      }
-
-      updateStats(data);
+      if (error) { showToast('Failed to load: ' + error.message, 'error'); return; }
+      updateStats();
       renderAppointments(data);
     }
 
-    // ============================================================
-    // UPDATE STATS
-    // ============================================================
     async function updateStats() {
-      const { data } = await supabase.from('appointments').select('status');
+      const { data } = await supabaseClient.from('appointments').select('status');
       if (!data) return;
-
-      const pending = data.filter(a => a.status === 'pending').length;
-      const completed = data.filter(a => a.status === 'completed').length;
-      const noshow = data.filter(a => a.status === 'no_show').length;
-
-      document.getElementById('stat-pending').textContent = pending;
-      document.getElementById('stat-completed').textContent = completed;
-      document.getElementById('stat-noshow').textContent = noshow;
+      document.getElementById('stat-pending').textContent = data.filter(a => a.status === 'pending').length;
+      document.getElementById('stat-completed').textContent = data.filter(a => a.status === 'completed').length;
+      document.getElementById('stat-noshow').textContent = data.filter(a => a.status === 'no_show').length;
     }
 
-    // ============================================================
-    // RENDER APPOINTMENTS
-    // ============================================================
     function renderAppointments(appointments) {
       const list = document.getElementById('appointment-list');
-
-      if (!appointments || appointments.length === 0) {
-        list.innerHTML = '<div class="empty-state">No appointments found</div>';
-        return;
-      }
-
+      if (!appointments || appointments.length === 0) { list.innerHTML = '<div class="empty-state">No appointments found</div>'; return; }
       list.innerHTML = appointments.map(apt => `
         <div class="appointment-card status-${apt.status}">
           <div class="patient-name">${apt.first_name} ${apt.last_name}</div>
@@ -424,138 +148,62 @@
             <div class="action-buttons">
               <button class="btn btn-complete" onclick="markComplete('${apt.id}', '${apt.first_name}', '${apt.phone}')">✅ Completed</button>
               <button class="btn btn-noshow" onclick="markNoShow('${apt.id}')">❌ No Show</button>
-            </div>
-          ` : `
+            </div>` : `
             <span class="status-badge badge-${apt.status}">${apt.status.replace('_', ' ')}</span>
-            ${apt.sms_sent ? '<div class="sms-indicator">✓ Review SMS sent</div>' : ''}
-          `}
-        </div>
-      `).join('');
+            ${apt.sms_sent ? '<div class="sms-indicator">✓ Review SMS sent</div>' : ''}`}
+        </div>`).join('');
     }
 
-    // ============================================================
-    // ADD PATIENT
-    // ============================================================
     async function addPatient() {
       const firstName = document.getElementById('input-first').value.trim();
       const lastName = document.getElementById('input-last').value.trim();
       const phone = document.getElementById('input-phone').value.trim();
       const service = document.getElementById('input-service').value;
-
-      if (!firstName || !lastName || !phone) {
-        showToast('Please fill in all fields', 'error');
-        return;
-      }
-
-      // Ensure phone has +1 prefix
+      if (!firstName || !lastName || !phone) { showToast('Please fill in all fields', 'error'); return; }
       let formattedPhone = phone.replace(/[\s\-\(\)]/g, '');
-      if (!formattedPhone.startsWith('+')) {
-        formattedPhone = formattedPhone.startsWith('1') ? '+' + formattedPhone : '+1' + formattedPhone;
-      }
-
-      const { error } = await supabase.from('appointments').insert({
-        first_name: firstName,
-        last_name: lastName,
-        phone: formattedPhone,
-        service: service
-      });
-
-      if (error) {
-        showToast('Failed to add: ' + error.message, 'error');
-        return;
-      }
-
-      // Clear form
+      if (!formattedPhone.startsWith('+')) formattedPhone = formattedPhone.startsWith('1') ? '+' + formattedPhone : '+1' + formattedPhone;
+      const { error } = await supabaseClient.from('appointments').insert({ first_name: firstName, last_name: lastName, phone: formattedPhone, service: service });
+      if (error) { showToast('Failed to add: ' + error.message, 'error'); return; }
       document.getElementById('input-first').value = '';
       document.getElementById('input-last').value = '';
       document.getElementById('input-phone').value = '';
-
-      showToast('Patient added successfully', 'success');
+      showToast('Patient added!', 'success');
       loadAppointments();
     }
 
-    // ============================================================
-    // MARK COMPLETE — Triggers Make.com webhook for SMS
-    // ============================================================
     async function markComplete(id, firstName, phone) {
-      // Update status in Supabase
-      const { error } = await supabase
-        .from('appointments')
-        .update({ status: 'completed' })
-        .eq('id', id);
-
-      if (error) {
-        showToast('Failed to update: ' + error.message, 'error');
-        return;
-      }
-
-      // Fire webhook to Make.com
+      const { error } = await supabaseClient.from('appointments').update({ status: 'completed' }).eq('id', id);
+      if (error) { showToast('Failed to update: ' + error.message, 'error'); return; }
       try {
         await fetch(MAKE_WEBHOOK_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            appointmentId: id,
-            firstName: firstName,
-            phone: phone,
-            clinicName: CLINIC_NAME,
-            reviewLink: REVIEW_LINK,
-            smsMessage: SMS_TEMPLATE
-              .replace('{firstName}', firstName)
-              .replace('{clinicName}', CLINIC_NAME)
-              .replace('{reviewLink}', REVIEW_LINK)
-          })
+          body: JSON.stringify({ appointmentId: id, firstName: firstName, phone: phone, clinicName: CLINIC_NAME, reviewLink: REVIEW_LINK, smsMessage: SMS_TEMPLATE.replace('{firstName}', firstName).replace('{clinicName}', CLINIC_NAME).replace('{reviewLink}', REVIEW_LINK) })
         });
-
-        // Mark SMS as queued
-        await supabase
-          .from('appointments')
-          .update({ sms_sent: true })
-          .eq('id', id);
-
-        showToast('✅ Marked complete — SMS will be sent in 30 min', 'success');
-      } catch (webhookError) {
-        showToast('Marked complete but webhook failed — check Make.com', 'error');
-      }
-
+        await supabaseClient.from('appointments').update({ sms_sent: true }).eq('id', id);
+        showToast('✅ Complete — SMS sending in 1 min!', 'success');
+      } catch (e) { showToast('Marked complete but webhook failed', 'error'); }
       loadAppointments();
     }
 
-    // ============================================================
-    // MARK NO SHOW — No SMS sent
-    // ============================================================
     async function markNoShow(id) {
-      const { error } = await supabase
-        .from('appointments')
-        .update({ status: 'no_show' })
-        .eq('id', id);
-
-      if (error) {
-        showToast('Failed to update: ' + error.message, 'error');
-        return;
-      }
-
-      showToast('❌ Marked as No Show — no SMS sent', 'success');
+      const { error } = await supabaseClient.from('appointments').update({ status: 'no_show' }).eq('id', id);
+      if (error) { showToast('Failed: ' + error.message, 'error'); return; }
+      showToast('❌ No Show — no SMS sent', 'success');
       loadAppointments();
     }
 
-    // ============================================================
-    // FILTER
-    // ============================================================
     function setFilter(filter) {
       currentFilter = filter;
-      document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
       event.target.classList.add('active');
       loadAppointments();
     }
 
-    // ============================================================
-    // TOAST NOTIFICATION
-    // ============================================================
     function showToast(message, type = 'success') {
       const toast = document.getElementById('toast');
       toast.textContent = message;
-      toast.className = `toast ${type}`;
+      toast.className = 'toast ' + type;
       toast.style.display = 'block';
       setTimeout(() => { toast.style.display = 'none'; }, 3000);
     }
