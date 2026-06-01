@@ -109,7 +109,6 @@
     const SMS_TEMPLATE = CONFIG.smsTemplate;
 
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
     let currentFilter = 'all';
 
     document.getElementById('clinic-name').textContent = CLINIC_NAME;
@@ -177,7 +176,8 @@
       try {
         await fetch(MAKE_WEBHOOK_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' },
           body: JSON.stringify({ appointmentId: id, firstName: firstName, phone: phone, clinicName: CLINIC_NAME, reviewLink: REVIEW_LINK, smsMessage: SMS_TEMPLATE.replace('{firstName}', firstName).replace('{clinicName}', CLINIC_NAME).replace('{reviewLink}', REVIEW_LINK) })
         });
         await supabaseClient.from('appointments').update({ sms_sent: true }).eq('id', id);
