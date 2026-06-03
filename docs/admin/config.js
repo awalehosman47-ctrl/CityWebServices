@@ -3,7 +3,7 @@ const CONFIG = {
   reviewLink: "https://reviews.citywebservices.site/",
   supabaseUrl: "https://sdyzrvledyhavahgfxbe.supabase.co",
   supabaseAnonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeXpydmxlZHloYXZhaGdmeGJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzMjY4NTgsImV4cCI6MjA5NDkwMjg1OH0.62pzmLeztF6zzI6Lg2LOxOV__t58Qh3Mhz0V7I8ZDb0",
-  smsTemplate: "Hi {firstName}, thank you for visiting us today! We'd love your feedback — it only takes 30 seconds 😊 {reviewLink}",
+  smsTemplate: "Hi {firstName}, thanks for your visit! Review us: {reviewLink}",
   makeWebhookUrl: "https://hook.us2.make.com/4stxvy5sjlej0b6udadlsg957fcs256m",
   smsDelayMinutes: 30
 };
