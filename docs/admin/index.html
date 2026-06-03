@@ -178,10 +178,10 @@
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'text/plain' },
-          body: JSON.stringify({ appointmentId: id, firstName: firstName, phone: phone, clinicName: CLINIC_NAME, reviewLink: REVIEW_LINK, smsMessage: SMS_TEMPLATE.replace('{firstName}', firstName).replace('{clinicName}', CLINIC_NAME).replace('{reviewLink}', REVIEW_LINK) })
+          body: `firstName=${encodeURIComponent(firstName)}&phone=${encodeURIComponent(phone)}&clinicName=${encodeURIComponent(CLINIC_NAME)}&reviewLink=${encodeURIComponent(REVIEW_LINK)}`
         });
         await supabaseClient.from('appointments').update({ sms_sent: true }).eq('id', id);
-        showToast('✅ Complete — SMS sending in 1 min!', 'success');
+        showToast('✅ Complete — SMS sending!', 'success');
       } catch (e) { showToast('Marked complete but webhook failed', 'error'); }
       loadAppointments();
     }
